@@ -1,0 +1,29 @@
+{
+  "folders": [
+    { "name": "Frontend", "path": "frontend" },
+    { "name": "Backend",  "path": "backend"  }
+  ],
+  "settings": {
+    "typescript.tsdk": "frontend/node_modules/typescript/lib",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder:Backend}/.venv/bin/python",
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/__pycache__": true,
+      "**/.venv": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "ms-python.python",
+      "ms-python.black-formatter",
+      "bradlc.vscode-tailwindcss",
+      "ms-vscode.vscode-typescript-next"
+    ]
+  }
+}
