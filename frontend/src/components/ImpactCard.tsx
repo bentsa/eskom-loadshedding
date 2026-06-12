@@ -5,6 +5,7 @@
  * - Shows visual risk indicator (color-coded)
  * - Displays reasoning and breakdown
  * - Lists actionable recommendations
+ * - Mobile-responsive design
  * - Minimal styling (consistent with existing dashboard)
  */
 
@@ -102,21 +103,31 @@ export const ImpactCard: React.FC<ImpactCardProps> = ({
           cursor: onToggleExpand ? 'pointer' : 'default',
         }}
         onClick={() => onToggleExpand?.(!isExpanded)}
+        role={onToggleExpand ? 'button' : undefined}
+        tabIndex={onToggleExpand ? 0 : undefined}
+        onKeyDown={(e) => {
+          if (onToggleExpand && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault()
+            onToggleExpand(!isExpanded)
+          }
+        }}
+        aria-expanded={isExpanded}
+        aria-label={`Impact analysis: ${analysis.riskLevel} risk`}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0 }}>
           {getRiskIcon(analysis.riskLevel)}
-          <div>
+          <div style={{ minWidth: 0, flex: 1 }}>
             <p style={{ fontSize: '12px', color: colors.text, fontWeight: '700' }}>
               {analysis.riskLevel} Risk
             </p>
-            <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+            <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px', wordWrap: 'break-word' }}>
               {analysis.reason}
             </p>
           </div>
         </div>
 
         {/* Score */}
-        <div style={{ textAlign: 'right', marginRight: '12px' }}>
+        <div style={{ textAlign: 'right', marginRight: '12px', minWidth: '50px', flexShrink: 0 }}>
           <div style={{
             fontSize: '18px',
             fontWeight: '700',
@@ -129,7 +140,7 @@ export const ImpactCard: React.FC<ImpactCardProps> = ({
 
         {/* Toggle */}
         {onToggleExpand && (
-          isExpanded ? <ChevronUp size={18} style={{ color: '#64748b' }} /> : <ChevronDown size={18} style={{ color: '#64748b' }} />
+          isExpanded ? <ChevronUp size={18} style={{ color: '#64748b', flexShrink: 0 }} /> : <ChevronDown size={18} style={{ color: '#64748b', flexShrink: 0 }} />
         )}
       </div>
 
@@ -168,7 +179,7 @@ export const ImpactCard: React.FC<ImpactCardProps> = ({
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                    <div>
+                    <div style={{ minWidth: 0, flex: 1 }}>
                       <p style={{ fontSize: '11px', fontWeight: '600', color: '#cbd5e1' }}>
                         {factorLabel}
                       </p>
@@ -180,8 +191,9 @@ export const ImpactCard: React.FC<ImpactCardProps> = ({
                       fontSize: '12px',
                       fontWeight: '700',
                       color: factor.score > 60 ? '#ef4444' : factor.score > 30 ? '#fb923c' : '#22c55e',
-                      minWidth: '30px',
+                      minWidth: '35px',
                       textAlign: 'right',
+                      flexShrink: 0,
                     }}>
                       {factor.score}
                     </div>
@@ -212,6 +224,7 @@ export const ImpactCard: React.FC<ImpactCardProps> = ({
                     color: '#6366f1',
                     fontWeight: '700',
                     minWidth: '18px',
+                    flexShrink: 0,
                   }}>
                     {i + 1}.
                   </span>
